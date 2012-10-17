@@ -2,20 +2,18 @@
 
 /* Matcher framework */
 Expectation := Object clone
-Expectation eql := method(
+Expectation eql := method(expectedValue,
   actualValue := self value
-  expectedValue := call evalArgAt(0)
   if(expectedValue == actualValue) else("Expected #{expectedValue}, got #{actualValue}" interpolate println))
 
 Object should := method(
   expectation := Expectation clone
-  expectation value := call target
+  expectation value := self
   expectation)
 nil should := true should := false should := Object getSlot("should")
 
 /* Fibonacci method */
-fib := method(
-  upTo := call evalArgAt(0)
+fib := method(upTo,
   if(upTo <= 1,
      return upTo,
      return fib(upTo - 1) + fib(upTo - 2)))
